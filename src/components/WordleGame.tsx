@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { Timer } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import GameGrid from './GameGrid';
 import Keyboard from './Keyboard';
+import ShareButton from './ShareButton';
 import { WORD_LIST } from '../utils/wordList';
 import { checkGuess, formatTime } from '../utils/gameUtils';
 
@@ -181,9 +181,17 @@ const WordleGame = () => {
                 Guesses: {guesses.length}/6
               </p>
             </div>
-            <Button onClick={resetGame} className="w-full">
-              Play Again
-            </Button>
+            <div className="space-y-2">
+              <ShareButton 
+                gameState={gameState}
+                elapsedTime={elapsedTime}
+                guesses={guesses}
+                targetWord={targetWord}
+              />
+              <Button onClick={resetGame} className="w-full">
+                Play Again
+              </Button>
+            </div>
           </div>
         )}
       </div>
