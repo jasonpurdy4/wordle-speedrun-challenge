@@ -3,7 +3,7 @@ import React from 'react';
 import { Share } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
-import { formatTime } from '../utils/gameUtils';
+import { formatTime, checkGuess } from '../utils/gameUtils';
 
 interface ShareButtonProps {
   gameState: 'won' | 'lost';
@@ -13,10 +13,27 @@ interface ShareButtonProps {
 }
 
 const ShareButton = ({ gameState, elapsedTime, guesses, targetWord }: ShareButtonProps) => {
+  const generateEmojiGrid = () => {
+    return guesses.map(guess => {
+      const result = checkGuess(guess, targetWord);
+      return result.map(status => {
+        switch (status) {
+          case 'correct': return '🟩';
+          case 'present': return '🟨';
+          case 'absent': return '⬜';
+          default: return '⬜';
+        }
+      }).join('');
+    }).join('\n');
+  };
+
   const handleShare = async () => {
+    const emojiGrid = generateEmojiGrid();
+    const gameNumber = Math.floor(Math.random() * 1000) + 1; // Random game number for now
+    
     const resultText = gameState === 'won' 
-      ? `🎉 Wordle Timer - Solved in ${formatTime(elapsedTime)}!\nGuesses: ${guesses.length}/6`
-      : `😔 Wordle Timer - Game Over\nGuesses: ${guesses.length}/6`;
+      ? `Wordle Timer ${gameNumber} ${guesses.length}/6 ⏱️ ${formatTime(elapsedTime)}\n\n${emojiGrid}`
+      : `Wordle Timer ${gameNumber} Game Over 😔💔\n\n${emojiGrid}`;
     
     const shareText = `${resultText}\n\nPlay at: ${window.location.href}`;
 
