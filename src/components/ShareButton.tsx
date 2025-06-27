@@ -16,7 +16,7 @@ const ShareButton = ({ gameState, elapsedTime, guesses, targetWord }: ShareButto
   const handleShare = async () => {
     const resultText = gameState === 'won' 
       ? `🎉 Wordle Timer - Solved in ${formatTime(elapsedTime)}!\nGuesses: ${guesses.length}/6`
-      : `😔 Wordle Timer - Game Over\nThe word was: ${targetWord}\nGuesses: ${guesses.length}/6`;
+      : `😔 Wordle Timer - Game Over\nGuesses: ${guesses.length}/6`;
     
     const shareText = `${resultText}\n\nPlay at: ${window.location.href}`;
 

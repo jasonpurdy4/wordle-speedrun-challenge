@@ -22,7 +22,7 @@ const Keyboard = ({ onKeyPress, usedLetters, disabled }: KeyboardProps) => {
     }
 
     if (key === 'ENTER' || key === 'BACKSPACE') {
-      return `${baseClass} px-4 bg-slate-600 hover:bg-slate-700 text-white`;
+      return `${baseClass} px-2 bg-slate-600 hover:bg-slate-700 text-white text-xs`;
     }
 
     const status = usedLetters[key];
